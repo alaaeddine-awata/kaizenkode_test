@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:kaizenkode_test/core/routes_manager.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 import '../i18n/strings.g.dart';extension IntExtension on int {
@@ -110,14 +110,14 @@ extension GoRouterExtension on GoRouter {
   }
 }
 
-// Future<XFile?> takePhoto() async {
-//   final ImagePicker picker = ImagePicker();
-//   final XFile? photo = await picker.pickImage(source: ImageSource.camera);
-//   return photo;
-// }
+Future<XFile?> takePhoto() async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+  return photo;
+}
 
-// Future<XFile?> addImage() async {
-//   final ImagePicker picker = ImagePicker();
-//   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-//   return image;
-// }
+Future<XFile?> addImage() async {
+  final ImagePicker picker = ImagePicker();
+  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  return image;
+}

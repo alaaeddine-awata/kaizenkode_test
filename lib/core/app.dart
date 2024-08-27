@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    return CupertinoApp.router(
+     debugShowCheckedModeBanner: false,
       title: 'Kaizenkode test',
      locale: TranslationProvider.of(context).flutterLocale, // use provider
      supportedLocales: AppLocaleUtils.supportedLocales,

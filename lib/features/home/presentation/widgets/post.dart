@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:kaizenkode_test/core/assets_manager.dart';
 import 'package:kaizenkode_test/core/color_manager.dart';
@@ -24,7 +25,8 @@ class PostItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:  const EdgeInsetsDirectional.only(start: 14.0,top: 14.0),
+                padding:
+                    const EdgeInsetsDirectional.only(start: 14.0, top: 14.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -36,14 +38,19 @@ class PostItem extends StatelessWidget {
                           height: 36,
                         )),
                         const SizedBox(
-                          width: 2,
+                          width: 8,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                Text(post.authorName,style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 13),),
+                                Text(
+                                  post.authorName,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13),
+                                ),
                                 const SizedBox(
                                   width: 3,
                                 ),
@@ -54,10 +61,19 @@ class PostItem extends StatelessWidget {
                                 const SizedBox(
                                   width: 3,
                                 ),
-                                Text('.  ' + post.date.getDateFormat,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 10),)
+                                Text(
+                                  '.  ' + post.date.getDateFormat,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 10),
+                                )
                               ],
                             ),
-                            Text(post.topic.name,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 10),)
+                            Text(
+                              post.topic.name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 10),
+                            )
                           ],
                         ),
                       ],
@@ -65,7 +81,11 @@ class PostItem extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(post.description,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 10),),
+                    Text(
+                      post.description,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 10),
+                    ),
                   ],
                 ),
               ),
@@ -74,17 +94,45 @@ class PostItem extends StatelessWidget {
               ),
               Visibility(
                   visible: post.image != null,
-                  child: Image.asset(post.image ?? '',fit: BoxFit.fill,width: double.infinity,height: 224,)),
+                  child: FadeInImage(
+                    image: post .image != null && post.image!.contains('assets') ? AssetImage(post.image ?? '') : FileImage(File(post.image??'')),
+                    placeholder: AssetImage(post.authorImage ?? ''),
+                    imageErrorBuilder: (context, error, stackTrace) => const Placeholder(),
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: 224,
+                  )),
               Row(
                 children: [
-                  CupertinoButton(child: const IconWidget(isPrimary: false, icon: IconAssets.heart), onPressed: (){},padding: EdgeInsets.zero,),
-                  CupertinoButton(child: const IconWidget(isPrimary: false, icon: IconAssets.message), onPressed: (){},padding: EdgeInsets.zero,),
-                  CupertinoButton(child: const IconWidget(isPrimary: false, icon: IconAssets.send), onPressed: (){},padding: EdgeInsets.zero,),
+                  CupertinoButton(
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    child: const IconWidget(
+                        isPrimary: false, icon: IconAssets.heart),
+                  ),
+                  CupertinoButton(
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    child: const IconWidget(
+                        isPrimary: false, icon: IconAssets.message),
+                  ),
+                  CupertinoButton(
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    child: const IconWidget(
+                        isPrimary: false, icon: IconAssets.send),
+                  ),
                 ],
               )
             ],
           ),
-          PositionedDirectional(end: 0,top: 0,child:  CupertinoButton(child: const IconWidget(isPrimary: false, icon: IconAssets.threeDots), onPressed: (){}))
+          PositionedDirectional(
+              end: 0,
+              top: 0,
+              child: CupertinoButton(
+                  child: const IconWidget(
+                      isPrimary: false, icon: IconAssets.threeDots),
+                  onPressed: () {}))
         ],
       ),
     );

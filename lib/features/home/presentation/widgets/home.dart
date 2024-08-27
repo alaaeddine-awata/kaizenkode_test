@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kaizenkode_test/core/color_manager.dart';
 import 'package:kaizenkode_test/features/home/presentation/widgets/post.dart';
@@ -34,9 +35,9 @@ class HomeView extends ConsumerWidget {
           .toList();
     }
     return CupertinoPageScaffold(
-        navigationBar: const CupertinoNavigationBar(
-          border: Border(),
-          trailing: IconWidget(isPrimary: false, icon: IconAssets.bell),
+        navigationBar: CupertinoNavigationBar(
+          border: const Border(),
+          trailing: GestureDetector(onTap: (){},child: const IconWidget(isPrimary: false, icon: IconAssets.bell)),
         ),
         child: Column(
           children: [
@@ -53,7 +54,7 @@ class HomeView extends ConsumerWidget {
                       children: [
                         Text(t.feeds,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700,color: ColorManager.black),),
                         CupertinoButton(
-                            child: IconWidget(
+                            child: const IconWidget(
                                 isPrimary: false, icon: IconAssets.filter),
                             onPressed: () {
                               showCupertinoModalPopup(
@@ -64,13 +65,16 @@ class HomeView extends ConsumerWidget {
                       ],
                     ),
                     Expanded(
-                      child: ListView.separated(
-                        itemCount: filteredPosts.length,
-                        separatorBuilder: (context, index) => SizedBox(height: 12,),
-                        itemBuilder: (context, index) {
-                          final post = filteredPosts[index];
-                          return PostItem(post: post);
-                        },
+                      child: RefreshIndicator(
+                        onRefresh: () async{},
+                        child: ListView.separated(
+                          itemCount: filteredPosts.length,
+                          separatorBuilder: (context, index) => const SizedBox(height: 12,),
+                          itemBuilder: (context, index) {
+                            final post = filteredPosts[index];
+                            return PostItem(post: post);
+                          },
+                        ),
                       ),
                     ),
                   ],

@@ -2,7 +2,7 @@ class MessageModel {
   final String senderName;
   final String date;
   final String description;
-  final int messagesCount; // Optional
+  int? messagesCount; // Optional
   final String senderImage;
   final String? image;
 
@@ -10,7 +10,7 @@ class MessageModel {
     required this.senderName,
     required this.date,
     required this.description,
-    required this.messagesCount,
+    this.messagesCount,
     required this.senderImage,
     this.image,
   });

@@ -26,9 +26,8 @@ class _CreatePostViewState extends State<CreatePostView> {
   FeedType feedType = FeedType.public;
   Topic topic = Topic.topic1;
   TextEditingController desc = TextEditingController();
-  String? image;
 
-  // File? image;
+  File? image;
 
   @override
   void dispose() {
@@ -65,6 +64,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                   builder: (context, ref, child) {
                     return CupertinoButton(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
+                        minSize: 30,
                         color: CupertinoTheme.of(context).primaryColor,
                         onPressed: () {
                           if(desc.text.isNotEmpty) {
@@ -75,7 +75,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                               date: DateTime.now().toIso8601String(),
                               description: desc.text,
                               authorImage: ImageAssets.smallImage,
-                              image: image));
+                              image: image?.path));
                             context.pop();
                           }else{
                             Fluttertoast.showToast(msg: t.pleaseWriteSomething);
@@ -165,8 +165,8 @@ class _CreatePostViewState extends State<CreatePostView> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.asset(
-                          image ?? '',
+                        child: Image.file(
+                          image ?? File(''),
                           height: 114,
                           fit: BoxFit.fill,
                         ),
@@ -175,7 +175,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                           end: 0,
                           child: CupertinoButton(
                               padding: EdgeInsets.zero,
-                              child: Icon(
+                              child: const Icon(
                                 CupertinoIcons.delete,
                                 color: CupertinoColors.white,
                               ),
@@ -195,35 +195,29 @@ class _CreatePostViewState extends State<CreatePostView> {
                       child: const IconWidget(
                           isPrimary: false, icon: IconAssets.camera),
                       onPressed: () {
-                        setState(() {
-                          image = ImageAssets.largeImage;
-                        });
-                        // takePhoto().then(
-                        //   (value) {
-                        //     if (value != null) {
-                        //       setState(() {
-                        //         image = File(value.path);
-                        //       });
-                        //     }
-                        //   },
-                        // );
+                        takePhoto().then(
+                          (value) {
+                            if (value != null) {
+                              setState(() {
+                                image = File(value.path);
+                              });
+                            }
+                          },
+                        );
                       }),
                   CupertinoButton(
                       child: const IconWidget(
                           isPrimary: false, icon: IconAssets.galleryAdd),
                       onPressed: () {
-                        setState(() {
-                          image = ImageAssets.largeImage;
-                        });
-                        // addImage().then(
-                        //   (value) {
-                        //     if (value != null) {
-                        //       setState(() {
-                        //         image = File(value.path);
-                        //       });
-                        //     }
-                        //   },
-                        // );
+                        addImage().then(
+                          (value) {
+                            if (value != null) {
+                              setState(() {
+                                image = File(value.path);
+                              });
+                            }
+                          },
+                        );
                       }),
                 ],
               ),
